@@ -1,6 +1,3 @@
-{
-  /*Videos that play inside the highlights */
-}
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/all";
@@ -15,7 +12,7 @@ const VideoCarousel = () => {
   const videoSpanRef = useRef([]);
   const videoDivRef = useRef([]);
 
-  // State to manage video playback and indicators
+  // video and indicator
   const [video, setVideo] = useState({
     isEnd: false,
     startPlay: false,
@@ -27,13 +24,12 @@ const VideoCarousel = () => {
   const [loadedData, setLoadedData] = useState([]);
   const { isEnd, isLastVideo, startPlay, videoId, isPlaying } = video;
 
-  // GSAP animations
   useGSAP(() => {
     // slider animation to move the video out of the screen and bring the next video in
     gsap.to("#slider", {
       transform: `translateX(${-100 * videoId}%)`,
       duration: 2,
-      ease: "power2.inOut",
+      ease: "power2.inOut", // show visualizer https://gsap.com/docs/v3/Eases
     });
 
     // video animation to play the video when it is in the view
@@ -52,7 +48,6 @@ const VideoCarousel = () => {
     });
   }, [isEnd, videoId]);
 
-  // Effect to manage progress bar animations
   useEffect(() => {
     let currentProgress = 0;
     let span = videoSpanRef.current;
@@ -71,10 +66,10 @@ const VideoCarousel = () => {
             gsap.to(videoDivRef.current[videoId], {
               width:
                 window.innerWidth < 760
-                  ? "10vw"
+                  ? "10vw" // mobile
                   : window.innerWidth < 1200
-                  ? "10vw"
-                  : "4vw",
+                  ? "10vw" // tablet
+                  : "4vw", // laptop
             });
 
             // set the background color of the progress bar
@@ -102,7 +97,7 @@ const VideoCarousel = () => {
         anim.restart();
       }
 
-      // Update animation progress based on video time
+      // update the progress bar
       const animUpdate = () => {
         anim.progress(
           videoRef.current[videoId].currentTime /
@@ -120,7 +115,6 @@ const VideoCarousel = () => {
     }
   }, [videoId, startPlay]);
 
-  // Effect to handle video play and pause
   useEffect(() => {
     if (loadedData.length > 3) {
       if (!isPlaying) {
@@ -131,7 +125,7 @@ const VideoCarousel = () => {
     }
   }, [startPlay, videoId, isPlaying, loadedData]);
 
-  // Handle video process states
+  // vd id is the id for every video until id becomes number 3
   const handleProcess = (type, i) => {
     switch (type) {
       case "video-end":
@@ -159,7 +153,6 @@ const VideoCarousel = () => {
     }
   };
 
-  // Handle video metadata loading
   const handleLoadedMetaData = (i, e) => setLoadedData((pre) => [...pre, e]);
 
   return (
@@ -220,7 +213,6 @@ const VideoCarousel = () => {
           ))}
         </div>
 
-        {/* Control button for play, pause, and replay */}
         <button className="control-btn">
           <img
             src={isLastVideo ? replayImg : !isPlaying ? playImg : pauseImg}
