@@ -1,3 +1,8 @@
+{
+  /*
+  How it works section of the apple website
+  */
+}
 import React, { useRef } from "react";
 import { chipImg, frameImg, frameVideo } from "../utils";
 import { useGSAP } from "@gsap/react";
@@ -7,6 +12,7 @@ import { animateWithGsap } from "../utils/animations";
 const HowItWorks = () => {
   const videoRef = useRef();
 
+  // GSAP animations
   useGSAP(() => {
     gsap.from("#chip", {
       scrollTrigger: {
@@ -19,6 +25,7 @@ const HowItWorks = () => {
       ease: "power2.inOut",
     });
 
+    // Custom fade-in animation for elements with class 'g_fadeIn'
     animateWithGsap(".g_fadeIn", {
       opacity: 1,
       y: 0,
@@ -30,10 +37,12 @@ const HowItWorks = () => {
   return (
     <section className="common-padding">
       <div className="screen-max-width">
+        {/* Chip image with animation */}
         <div id="chip" className="flex-center w-full my-20">
           <img src={chipImg} alt="chip" width={180} height={180} />
         </div>
 
+        {/* Title and subtitle */}
         <div className="flex flex-col items-center">
           <h2 className="hiw-title">
             A17 Pro chip.
@@ -45,6 +54,7 @@ const HowItWorks = () => {
           </p>
         </div>
 
+        {/* Video frame and video */}
         <div className="mt-10 md:mt-20 mb-14">
           <div className="relative h-full flex-center">
             <div className="overflow-hidden">
@@ -72,6 +82,7 @@ const HowItWorks = () => {
           </p>
         </div>
 
+        {/* Text content */}
         <div className="hiw-text-container">
           <div className="flex flex-1 justify-center flex-col">
             <p className="hiw-text g_fadeIn">

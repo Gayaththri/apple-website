@@ -7,7 +7,9 @@ import gsap from "gsap";
 const Features = () => {
   const videoRef = useRef();
 
+  // GSAP animations
   useGSAP(() => {
+    // Animation for the video element
     gsap.to("#exploreVideo", {
       scrollTrigger: {
         trigger: "#exploreVideo",
@@ -19,6 +21,7 @@ const Features = () => {
       },
     });
 
+    // Custom animations
     animateWithGsap("#features_title", { y: 0, opacity: 1 });
     animateWithGsap(
       ".g_grow",
